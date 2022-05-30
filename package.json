@@ -14,10 +14,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^27.5.1",
-    "chalk": "^4.1.2",
-    "debug": "^4.3.4",
-    "dotenv": "^16.0.1",
     "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -28,6 +24,10 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "@types/jest": "^27.5.1",
+    "chalk": "^4.1.2",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-validation": "^4.1.0",
