@@ -6,6 +6,7 @@ const registerUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ username });
+
     if (!user) {
       const encryptedPassword = bcrypt.hash(password, 10);
       const newUser = {
@@ -16,11 +17,11 @@ const registerUser = async (req, res, next) => {
 
       await User.create(newUser);
 
-      res.status(201).json({ user: name });
+      res.status(201).json({ name });
     } else {
       const userError = new Error();
-      userError.customMessage = "User name already exist";
       userError.statusCode = 409;
+      userError.customMessage = "User name already exist";
 
       next(userError);
     }
