@@ -8,8 +8,8 @@ const corsOptions = {
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3002",
-    "http://ignasi-reixach-front-final-project-202204-bcn.netlify.app",
-    "http://ignasi-reixach-front-final-project-202204-bcn.netlify.app/",
+    "https://ignasi-reixach-front-final-project-202204-bcn.netlify.app",
+    "https://ignasi-reixach-front-final-project-202204-bcn.netlify.app/",
   ],
 };
 
