@@ -3,12 +3,6 @@ const User = require("../../database/models/User");
 
 const { registerUser } = require("./userController");
 
-// jest.mock("../../database/models/User", () => ({
-//   findOne: jest.fn(),
-
-//   create: jest.fn(() => mockNewUser),
-// }));
-
 jest.mock("bcrypt", () => ({ compare: jest.fn(), hash: jest.fn() }));
 
 describe("Given a registerUser function", () => {
@@ -26,7 +20,7 @@ describe("Given a registerUser function", () => {
       User.findOne = jest.fn().mockResolvedValue(false);
 
       const expectedStatus = 201;
-      const expectedJson = { name: "Pepito" };
+      const expectedJson = { username: "Grillo" };
 
       bcrypt.hash.mockImplementation(() => "hashedPassword");
 
@@ -38,9 +32,9 @@ describe("Given a registerUser function", () => {
   });
 
   describe("When it is called with a user that is already in the database", () => {
-    test("Then it should call the 'next' middleware with an error", async () => {
+    test("Then it should call the 'next' middleware function with an error", async () => {
       const req = {
-        body: { name: "User", username: "User0", password: "0000" },
+        body: { name: "Pepito", username: "Grillo", password: "0000" },
       };
       const res = {
         status: jest.fn().mockReturnThis(),
