@@ -20,7 +20,7 @@ describe("Given a registerUser function", () => {
       User.findOne = jest.fn().mockResolvedValue(false);
 
       const expectedStatus = 201;
-      const expectedJson = { name: "Pepito" };
+      const expectedJson = { username: "Grillo" };
 
       bcrypt.hash.mockImplementation(() => "hashedPassword");
 
