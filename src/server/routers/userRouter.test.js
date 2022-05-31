@@ -16,6 +16,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await User.create(mockUser[0]);
+  await User.create(mockUser[1]);
 });
 
 afterEach(async () => {
@@ -32,7 +33,7 @@ describe("Given a POST '/register' endpoint", () => {
     test("Then it should receive a object with a new created user", async () => {
       const newUserData = {
         name: "Pepito",
-        username: "Grillo82",
+        username: "Grillo87",
         password: "0000",
       };
 
@@ -42,7 +43,7 @@ describe("Given a POST '/register' endpoint", () => {
         .expect(201);
 
       expect(response.body.id).not.toBeNull();
-      expect(response.body.username).toBe("Grillo82");
+      expect(response.body.username).toBe("Grillo87");
     });
   });
 
@@ -50,7 +51,7 @@ describe("Given a POST '/register' endpoint", () => {
     test("Then it should call the response method status code 409", async () => {
       const newUserData = {
         name: "Manolito",
-        username: "Gafotas23",
+        username: "Gafotas",
         password: "0000",
       };
 
