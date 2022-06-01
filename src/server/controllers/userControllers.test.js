@@ -77,7 +77,7 @@ describe("Given a LoginUser function", () => {
     json: jest.fn(),
   };
 
-  describe("When it receives a request with the correct username and password", () => {
+  describe("When invoked with a request with the correct username and password", () => {
     const token = "qwertasdfgzxcvbmloh";
 
     User.findOne = jest.fn().mockResolvedValue(true);
@@ -90,6 +90,30 @@ describe("Given a LoginUser function", () => {
       await LoginUser(req, res);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+
+  describe("When invoked with a req object with an incorrect username", () => {
+    test("Then it should call the next function", async () => {
+      const next = jest.fn();
+
+      User.findOne = jest.fn().mockResolvedValue(false);
+
+      await LoginUser(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+
+  describe("When invoked with a correct username but wrong password", () => {
+    test("Then it should call the next function", async () => {
+      const next = jest.fn();
+
+      User.findOne = jest.fn().mockResolvedValue(true);
+      bcrypt.compare = jest.fn().mockResolvedValue(false);
+      await LoginUser(req, res, next);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
