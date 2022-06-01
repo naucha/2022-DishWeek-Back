@@ -17,4 +17,17 @@ const credentialsRegisterSchema = {
   }),
 };
 
-module.exports = { credentialsRegisterSchema };
+const credentialsLoginSchema = {
+  body: Joi.object({
+    username: Joi.string()
+      .max(20)
+      .message({ message: "Username is required" })
+      .required(),
+    password: Joi.string()
+      .max(16)
+      .message({ message: "Password is required" })
+      .required(),
+  }),
+};
+
+module.exports = { credentialsRegisterSchema, credentialsLoginSchema };
