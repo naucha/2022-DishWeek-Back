@@ -1,7 +1,14 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../../database/models/User");
+const mockUser = require("../mocks/mockUser");
 
-const { registerUser } = require("./userController");
+const { registerUser, LoginUser } = require("./userController");
+
+jest.mock("../../database/models/User", () => ({
+  findOne: jest.fn(),
+  create: jest.fn(() => mockUser),
+}));
 
 jest.mock("bcrypt", () => ({ compare: jest.fn(), hash: jest.fn() }));
 
@@ -53,6 +60,36 @@ describe("Given a registerUser function", () => {
       expectedError.customMessage = "User name already exist";
 
       expect(mockNext).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a LoginUser function", () => {
+  const req = {
+    body: {
+      username: "Pepito",
+      password: "1234",
+    },
+  };
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  describe("When it receives a request with the correct username and password", () => {
+    const token = "qwertasdfgzxcvbmloh";
+
+    User.findOne = jest.fn().mockResolvedValue(true);
+    bcrypt.compare = jest.fn().mockResolvedValue(true);
+    jwt.sign = jest.fn().mockReturnValue(token);
+
+    test("Then it should call a res status with code 200", async () => {
+      const expectedStatus = 200;
+
+      await LoginUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
   });
 });
