@@ -4,13 +4,13 @@ const chalk = require("chalk");
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
-  const { authorization } = req.body;
+  const { authorization } = req.headers;
 
   try {
-    if (!authorization.includes("Bearer")) {
+    if (!authorization.includes("Bearer ")) {
       throw new Error("Not bearer");
     }
-    const token = authorization.replace("Bearer", "");
+    const token = authorization.replace("Bearer ", "");
     const { id } = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = id;
     debug(chalk.green("Valid token"));
