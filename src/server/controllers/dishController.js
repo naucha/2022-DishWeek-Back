@@ -1,5 +1,5 @@
 require("dotenv").config();
-const debug = require("debug")();
+const debug = require("debug")("dishweek:server:controllers");
 const chalk = require("chalk");
 const Dish = require("../../database/models/Dish");
 
