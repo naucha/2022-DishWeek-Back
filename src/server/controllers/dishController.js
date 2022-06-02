@@ -4,10 +4,15 @@ const chalk = require("chalk");
 const Dish = require("../../database/models/Dish");
 
 const getDish = async (req, res, next) => {
-  debug(chalk.green("Getting solitary Dish"));
-  const dishes = await Dish.find();
-
-  res.status(200).json(dishes);
+  try {
+    const dishes = await Dish.find();
+    debug(chalk.green("Getting Dishes"));
+    res.status(200).json(dishes);
+  } catch (error) {
+    error.statusCode = 404;
+    error.customMessage = "Not found";
+    next(error);
+  }
 };
 
-module.exports = getDish;
+module.exports = { getDish };
