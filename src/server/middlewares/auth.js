@@ -1,5 +1,6 @@
 require("dotenv").config();
-
+const debug = require("debug")("dishweek:server:middlewares");
+const chalk = require("chalk");
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
@@ -12,6 +13,7 @@ const auth = (req, res, next) => {
     const token = authorization.replace("Bearer", "");
     const { id } = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = id;
+    debug(chalk.green("Valid token"));
 
     next();
   } catch (error) {
