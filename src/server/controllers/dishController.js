@@ -3,18 +3,19 @@ const debug = require("debug")("dishweek:server:controllers");
 const chalk = require("chalk");
 const Dish = require("../../database/models/Dish");
 
-const getDish = async (req, res, next) => {
+const getDishes = async (req, res, next) => {
   try {
     const dishes = await Dish.find();
     debug(chalk.green("Getting Dishes"));
 
     res.status(200).json(dishes);
   } catch (error) {
-    error.statusCode = 404;
-    error.customMessage = "Not found";
+    const userError = new Error();
+    userError.statusCode = 404;
+    userError.customMessage = "Page Not Found";
 
-    next(error);
+    next(userError);
   }
 };
 
-module.exports = { getDish };
+module.exports = { getDishes };

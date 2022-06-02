@@ -7,21 +7,27 @@ const DishSchema = new Schema({
   },
   veggy: {
     type: Boolean,
+    required: true,
   },
   ingredients: {
     type: Array,
+    required: true,
   },
   image: {
     type: String,
+    required: true,
   },
   resume: {
     type: String,
+    required: true,
   },
   recipe: {
     type: String,
+    required: true,
   },
   cookingTime: {
     type: String,
+    required: true,
   },
 });
 
