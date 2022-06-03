@@ -6,6 +6,7 @@ const { customError } = require("../../utils/customError");
 
 const registerUser = async (req, res, next) => {
   const { name, username, password } = req.body;
+
   const user = await User.findOne({ username });
 
   if (user) {
@@ -40,9 +41,10 @@ const loginUser = async (req, res, next) => {
     next(error);
     return;
   }
+
   const userData = {
     username: user.username,
-    name: user.name,
+    password: user.password,
   };
 
   const rightPassword = await bcrypt.compare(password, user.password);
@@ -57,4 +59,4 @@ const loginUser = async (req, res, next) => {
   res.status(200).json({ token });
 };
 
-module.exports = { registerUser, LoginUser: loginUser };
+module.exports = { registerUser, loginUser };

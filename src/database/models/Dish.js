@@ -29,6 +29,10 @@ const DishSchema = new Schema({
     type: String,
     required: true,
   },
+  daysOfWeek: {
+    type: Array,
+    required: true,
+  },
 });
 
 const Dish = model("Dish", DishSchema, "dishes");
