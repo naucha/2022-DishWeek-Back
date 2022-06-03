@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../database/models/User");
 const mockUser = require("../mocks/mockUser");
 
-const { registerUser, LoginUser } = require("./userController");
+const { registerUser, loginUser } = require("./userController");
 
 jest.mock("../../database/models/User", () => ({
   findOne: jest.fn(),
@@ -64,7 +64,7 @@ describe("Given a registerUser function", () => {
   });
 });
 
-describe("Given a LoginUser function", () => {
+describe("Given a loginUser function", () => {
   const req = {
     body: {
       username: "Pepito",
@@ -87,7 +87,7 @@ describe("Given a LoginUser function", () => {
     test("Then it should call a res status with code 200", async () => {
       const expectedStatus = 200;
 
-      await LoginUser(req, res);
+      await loginUser(req, res);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
@@ -99,7 +99,7 @@ describe("Given a LoginUser function", () => {
 
       User.findOne = jest.fn().mockResolvedValue(false);
 
-      await LoginUser(req, res, next);
+      await loginUser(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });
@@ -111,7 +111,7 @@ describe("Given a LoginUser function", () => {
 
       User.findOne = jest.fn().mockResolvedValue(true);
       bcrypt.compare = jest.fn().mockResolvedValue(false);
-      await LoginUser(req, res, next);
+      await loginUser(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });
