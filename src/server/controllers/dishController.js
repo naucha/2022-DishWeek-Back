@@ -18,4 +18,13 @@ const getDishes = async (req, res, next) => {
   }
 };
 
-module.exports = { getDishes };
+const deleteDish = async (req, res) => {
+  const { idDishes } = req.params;
+
+  debug(chalk.bgBlue("New Request to delete a dish"));
+
+  await Dish.findByIdAndDelete(idDishes);
+  res.status(200).json({ msg: `Deleted dish with ID: ${idDishes}` });
+};
+
+module.exports = { getDishes, deleteDish };
