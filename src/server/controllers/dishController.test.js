@@ -1,5 +1,5 @@
 const Dish = require("../../database/models/Dish");
-const { mockDishes } = require("../mocks/mockDishes");
+const mockDishes = require("../mocks/mockDishes");
 const { getDishes } = require("./dishController");
 
 describe("Given a getDish function", () => {
@@ -19,3 +19,25 @@ describe("Given a getDish function", () => {
     });
   });
 });
+
+// describe("Given a deleteDish function", () => {
+//   describe("When it receives a request", () => {
+//     test("Then is should call the respons's status method with 200", async () => {
+//       const res = {
+//         status: jest.fn().mockReturnThis(),
+//         json: jest.fn(),
+//       };
+
+//       const req = { params: { idDishes: "2121" } };
+//       const expectedStatus = 200;
+//       const expectedMessage = { msg: "Deleted dish with ID: 2121" };
+
+//       await deleteDish(req, res, null);
+
+//       Dish.findByIdAndDelete = jest.fn().mockResolvedValue(mockDishes[1].id);
+
+//       expect(res.status).toHaveBeenCalledWith(expectedStatus);
+//       expect(res.json).toHaveBeenCalledWith(expectedMessage);
+//     });
+//   });
+// });

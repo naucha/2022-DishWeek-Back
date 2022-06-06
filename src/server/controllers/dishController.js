@@ -24,6 +24,7 @@ const deleteDish = async (req, res) => {
   debug(chalk.bgBlue("New Request to delete a dish"));
 
   await Dish.findByIdAndDelete(idDishes);
+
   res.status(200).json({ msg: `Deleted dish with ID: ${idDishes}` });
 };
 
