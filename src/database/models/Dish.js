@@ -1,10 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const DishSchema = new Schema({
-  id: {
-    type: Schema.Types.ObjectId,
-    ref: "Dish",
-  },
   name: {
     type: String,
     required: true,
@@ -42,12 +38,3 @@ const DishSchema = new Schema({
 const Dish = model("Dish", DishSchema, "dishes");
 
 module.exports = Dish;
-
-// - Name (string)
-// - Veggy (Boolean)
-// - Ingredients (string)
-// - Image (string)
-// - Recipe (object):
-// - Resume description (string)
-// - Description (string)
-// - Cooking Time (string)
