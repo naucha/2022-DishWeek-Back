@@ -25,11 +25,11 @@ const DishSchema = new Schema({
     type: String,
     required: true,
   },
-  cookingTime: {
+  cookingtime: {
     type: String,
     required: true,
   },
-  daysOfWeek: {
+  daysofweek: {
     type: Array,
     required: true,
   },
