@@ -2,6 +2,12 @@ const Dish = require("../../database/models/Dish");
 const mockDishes = require("../mocks/mockDishes");
 const { getDishes, deleteDish } = require("./dishController");
 
+const next = jest.fn();
+jest.mock("../../database/models/Dish", () => ({
+  find: jest.fn().mockReturnThis(),
+  populate: jest.fn().mockReturnThis(),
+}));
+
 describe("Given a getDish function", () => {
   describe("When it receives a request", () => {
     test("Then it should call the response's status method with 200", async () => {
@@ -9,14 +15,25 @@ describe("Given a getDish function", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
+
       const expectedStatus = 200;
 
-      Dish.find = jest.fn().mockResolvedValue(mockDishes);
-
-      await getDishes(null, res);
+      await getDishes(null, res, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
+  });
+});
+
+describe("When ocurs an error", () => {
+  test("Then it should call the response's method with 404 and 'Page Not Found' error message", async () => {
+    const expectedErrorMessage = "Page Not Found";
+    const expectedError = new Error(expectedErrorMessage);
+
+    Dish.find = jest.fn().mockResolvedValue(false);
+    await getDishes(null, null, next);
+
+    expect(next).not.toHaveBeenCalledWith(expectedError);
   });
 });
 

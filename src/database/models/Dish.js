@@ -17,6 +17,9 @@ const DishSchema = new Schema({
     type: String,
     required: true,
   },
+  imagebackup: {
+    type: String,
+  },
   resume: {
     type: String,
     required: true,

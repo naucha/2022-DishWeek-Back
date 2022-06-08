@@ -2,10 +2,15 @@ require("dotenv").config();
 const debug = require("debug")("dishweek:server:controllers");
 const chalk = require("chalk");
 const Dish = require("../../database/models/Dish");
+const User = require("../../database/models/User");
 
 const getDishes = async (req, res, next) => {
   try {
-    const dishes = await Dish.find();
+    const dishes = await Dish.find().populate({
+      path: "dishes",
+      select: "name username",
+      model: User,
+    });
     debug(chalk.green("Getting Dishes"));
 
     res.status(200).json(dishes);
