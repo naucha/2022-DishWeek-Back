@@ -7,6 +7,6 @@ const { getDishes, deleteDish } = require("../controllers/dishController");
 const dishesRouter = express.Router();
 
 dishesRouter.get("/list", auth, getDishes);
-dishesRouter.delete("/list/:idDishes", auth, deleteDish);
+dishesRouter.delete("/:idDishes", deleteDish);
 
 module.exports = dishesRouter;
