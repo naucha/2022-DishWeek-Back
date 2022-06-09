@@ -6,35 +6,39 @@ const DishSchema = new Schema({
     required: true,
   },
   veggy: {
-    type: Boolean,
-    required: true,
+    type: String,
+    // required: true,
   },
   ingredients: {
     type: Array,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,
-    required: true,
+    // required: true,
   },
   imagebackup: {
     type: String,
   },
   resume: {
     type: String,
-    required: true,
+    // required: true,
   },
   recipe: {
     type: String,
-    required: true,
+    // required: true,
   },
   cookingtime: {
     type: String,
-    required: true,
+    // required: true,
   },
   daysofweek: {
     type: Array,
-    required: true,
+    // required: true,
+  },
+  createdby: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
