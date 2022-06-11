@@ -4,7 +4,6 @@ const chalk = require("chalk");
 const path = require("path");
 const fs = require("fs");
 
-// const { initializeApp } = require("firebase/app");
 const Dish = require("../../database/models/Dish");
 const User = require("../../database/models/User");
 
@@ -83,24 +82,3 @@ const createDish = async (req, res, next) => {
 };
 
 module.exports = { getDishes, deleteDish, createDish };
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBI24WNicorKeGc6QmRmgQuBRLhoIm_dZ4",
-//   authDomain: "images-3286d.firebaseapp.com",
-//   projectId: "images-3286d",
-//   storageBucket: "images-3286d.appspot.com",
-//   messagingSenderId: "1096893269963",
-//   appId: "1:1096893269963:web:fc8c6ee97729bb4362984e",
-// };
-// const firebaseApp = initializeApp(firebaseConfig);
-
-// fs.readfile(
-//   path.join("uploads", "image", newFilename),
-//   async(readError, readFile)
-// );
-
-// const storage = getStorage(fireBaseApp);
-// const storageRef = ref(storage, newFilename);
-// await uploadBytes(storageRef, readFile);
-
-// const fireBAseFileURL = await getDownLoad(storageRef);
