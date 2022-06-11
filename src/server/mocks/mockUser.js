@@ -11,4 +11,12 @@ const mockUser = [
   },
 ];
 
-module.exports = mockUser;
+const mockUserRegister = [
+  {
+    name: "Pepito",
+    username: "Grillo",
+    password: "0000",
+  },
+];
+
+module.exports = { mockUser, mockUserRegister };
