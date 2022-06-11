@@ -33,6 +33,7 @@ const deleteDish = async (req, res) => {
 const createDish = async (req, res, next) => {
   try {
     const dish = req.body;
+
     const {
       userId: { username },
     } = req;
@@ -45,8 +46,8 @@ const createDish = async (req, res, next) => {
       image: file ? path.join("images", newFilename) : "",
       imagebackup: file ? firebaseFileURL : "",
     };
-    debug(newDish);
 
+    debug(newDish);
     const createdDish = await Dish.create(newDish);
 
     await User.updateOne(
@@ -57,6 +58,7 @@ const createDish = async (req, res, next) => {
         },
       }
     );
+
     debug(createdDish.id);
     debug(chalk.bgBlackBright("Creating new dish"));
 
