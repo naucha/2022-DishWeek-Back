@@ -18,6 +18,6 @@ const upload = multer({
 
 dishesRouter.get("/list", auth, getDishes);
 dishesRouter.delete("/:idDishes", deleteDish);
-dishesRouter.post("/create", upload.single("image"), createDish);
+dishesRouter.post("/create", auth, upload.single("image"), createDish);
 
 module.exports = dishesRouter;

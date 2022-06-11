@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, SchemaTypes } = require("mongoose");
 
 const UserSchema = new Schema({
   name: {
@@ -12,6 +12,11 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  mycreateddishes: {
+    type: [SchemaTypes.ObjectId],
+    ref: "Dish",
+    default: [],
   },
 });
 
