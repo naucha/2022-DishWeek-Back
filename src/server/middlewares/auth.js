@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
       throw new Error("Not bearer");
     }
     const token = authorization.replace("Bearer ", "");
-    const { id } = jwt.verify(token, process.env.JWT_SECRET);
+    const id = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = id;
 
     debug(chalk.green("Valid token"));
