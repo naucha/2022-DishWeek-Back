@@ -14,6 +14,9 @@ const dishesRouter = express.Router();
 
 const upload = multer({
   dest: path.join("uploads", "images"),
+  limits: {
+    fileSize: 10000000,
+  },
 });
 
 dishesRouter.get("/list", auth, getDishes);
