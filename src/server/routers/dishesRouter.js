@@ -9,6 +9,7 @@ const {
   deleteDish,
   createDish,
 } = require("../controllers/dishController");
+const { renameFile } = require("../middlewares/renameFile");
 
 const dishesRouter = express.Router();
 
@@ -22,6 +23,12 @@ const upload = multer({
 
 dishesRouter.get("/list", auth, getDishes);
 dishesRouter.delete("/:idDishes", deleteDish);
-dishesRouter.post("/create", auth, upload.single("image"), createDish);
+dishesRouter.post(
+  "/create",
+  auth,
+  upload.single("image"),
+  renameFile,
+  createDish
+);
 
 module.exports = dishesRouter;

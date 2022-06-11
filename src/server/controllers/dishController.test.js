@@ -1,10 +1,10 @@
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const { default: mongoose } = require("mongoose");
+
 const Dish = require("../../database/models/Dish");
 const mockDishes = require("../mocks/mockDishes");
-const { getDishes, deleteDish, createDish } = require("./dishController");
+const { getDishes, deleteDish } = require("./dishController");
 const connectDB = require("../../database");
-const User = require("../../database/models/User");
 
 let mongoServer;
 
@@ -77,33 +77,6 @@ describe("Given a deleteDish function", () => {
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(res.json).toHaveBeenCalledWith(expectedMessage);
-    });
-  });
-});
-
-describe("Given a createDish function", () => {
-  describe("When it receives a request with a newDish", () => {
-    test("Then it should call a response's status with 201 and the json method with a newDish", async () => {
-      const res = {
-        json: jest.fn(),
-        status: jest.fn().mockReturnThis(),
-      };
-
-      const req = {
-        body: { newDish: mockDishes[0] },
-        file: { filename: "image", originalname: "mockimage.jpg" },
-        userId: "mockid",
-        mycreateddishes: mockDishes[0].id,
-      };
-      const next = jest.fn();
-
-      Dish.create = jest.fn().mockResolvedValueOnce(mockDishes[0]);
-
-      User.findOneAndUpdate = jest.fn().mockResolvedValueOnce(true);
-
-      await createDish(req, res, next);
-
-      expect(res.status).toHaveBeenCalledWith(201);
     });
   });
 });
