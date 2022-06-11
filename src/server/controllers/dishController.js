@@ -1,9 +1,7 @@
 require("dotenv").config();
-const debug = require("debug")("dishweek:server:controllers");
+const debug = require("debug")("dishweek:server:controllers:dishController");
 const chalk = require("chalk");
 const path = require("path");
-const fs = require("fs");
-
 const Dish = require("../../database/models/Dish");
 const User = require("../../database/models/User");
 
@@ -33,37 +31,22 @@ const deleteDish = async (req, res) => {
 };
 
 const createDish = async (req, res, next) => {
-  const dish = req.body;
-  const {
-    userId: { username },
-  } = req;
-  const { file } = req;
-
-  const newFilename = `${Date.now()}${file.original}.jpg`;
-
-  if (file) {
-    fs.rename(
-      path.join("uploads", "images", file.filename),
-      path.join("uploads", "images", newFilename),
-      async (error) => {
-        if (error) {
-          debug(chalk.red(error.message));
-          const userError = new Error(error.message);
-          userError.statusCode = 500;
-          userError.customMessage = "Failed renaming file";
-
-          next(error);
-        }
-      }
-    );
+  try {
+    const dish = req.body;
+    const {
+      userId: { username },
+    } = req;
+    const { file } = req;
+    const { firebaseFileURL, newFilename } = req;
 
     const newDish = {
       ...dish,
       createdby: username,
-      image: path.join("images", newFilename),
-      imagebackup: "",
+      image: file ? path.join("images", newFilename) : "",
+      imagebackup: file ? firebaseFileURL : "",
     };
     debug(newDish);
+
     const createdDish = await Dish.create(newDish);
 
     await User.updateOne(
@@ -78,6 +61,9 @@ const createDish = async (req, res, next) => {
     debug(chalk.bgBlackBright("Creating new dish"));
 
     res.status(201).json({ dish: { id: createdDish.id, ...newDish } });
+  } catch (error) {
+    debug(chalk.bgRedBright("Error creating dish"));
+    next(error);
   }
 };
 
