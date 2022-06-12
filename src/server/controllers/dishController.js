@@ -36,7 +36,13 @@ const createDish = async (req, res, next) => {
 
     const {
       userId: { username },
+      body: { ingredient: allIngredients },
     } = req;
+
+    const cleanIngredients = allIngredients
+      .split("\r\n")
+      .map((ingredient) => ingredient.replace("- ", ""));
+
     const { file } = req;
     const { firebaseFileURL, newFilename } = req;
 
@@ -45,9 +51,9 @@ const createDish = async (req, res, next) => {
       createdby: username,
       image: file ? path.join("images", newFilename) : "",
       imagebackup: file ? firebaseFileURL : "",
+      ingredients: cleanIngredients,
     };
 
-    debug(newDish);
     const createdDish = await Dish.create(newDish);
 
     await User.updateOne(
@@ -73,4 +79,50 @@ const createDish = async (req, res, next) => {
   }
 };
 
-module.exports = { getDishes, deleteDish, createDish };
+const getDish = async (req, res, next) => {
+  const { idDishes } = req.params;
+
+  try {
+    const singleDish = await Dish.findById(idDishes);
+    res.status(200).json({ singleDish });
+  } catch (error) {
+    debug(chalk.bgRedBright("Error creating dish"));
+    const customError = new Error();
+    customError.statusCode = 400;
+    customError.customMessage = "Error getting dish";
+
+    next(customError);
+  }
+};
+
+const uploadDish = async (req, res, next) => {
+  debug(chalk.bgBlue("New Request to update dish"));
+  try {
+    const { idDishes } = req.params;
+    let dish = req.body;
+    const { image, firebaseFileURL } = req;
+
+    if (image) {
+      dish = {
+        ...dish,
+        image,
+        imagebackup: firebaseFileURL,
+      };
+    }
+
+    const updatedDish = await Dish.findByIdAndUpdate(idDishes, dish, {
+      new: true,
+    });
+
+    res.status(200).json({ updatedDish });
+  } catch (error) {
+    debug(chalk.bgRed("Error updating dish"));
+    const customError = new Error();
+    customError.customMessage = "Error updating dish";
+    customError.statusCode = 404;
+
+    next(customError);
+  }
+};
+
+module.exports = { getDishes, deleteDish, createDish, uploadDish, getDish };

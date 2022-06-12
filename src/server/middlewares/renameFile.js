@@ -23,8 +23,8 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const renameFile = async (req, res, next) => {
   const { file } = req;
-  const newFilename = `${Date.now()}${file.originalname}`;
   if (file) {
+    const newFilename = `${Date.now()}${file.originalname}`;
     fs.rename(
       path.join("uploads", "images", file.filename),
       path.join("uploads", "images", newFilename),
