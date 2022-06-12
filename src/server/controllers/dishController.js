@@ -76,7 +76,7 @@ const createDish = async (req, res, next) => {
 const uploadDish = async (req, res, next) => {
   debug(chalk.bgBlue("New Request to update dish"));
   try {
-    const { dishId } = req.params;
+    const { idDishes } = req.params;
     let dish = req.body;
     const { image, firebaseFileURL } = req;
 
@@ -88,7 +88,7 @@ const uploadDish = async (req, res, next) => {
       };
     }
 
-    const updatedDish = await Dish.findByIdAndUpdate(dishId, dish, {
+    const updatedDish = await Dish.findByIdAndUpdate(idDishes, dish, {
       new: true,
     });
 
