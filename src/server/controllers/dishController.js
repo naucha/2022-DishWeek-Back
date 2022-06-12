@@ -73,4 +73,34 @@ const createDish = async (req, res, next) => {
   }
 };
 
-module.exports = { getDishes, deleteDish, createDish };
+const uploadDish = async (req, res, next) => {
+  debug(chalk.bgBlue("New Request to update dish"));
+  try {
+    const { dishId } = req.params;
+    let dish = req.body;
+    const { image, firebaseFileURL } = req;
+
+    if (image) {
+      dish = {
+        ...dish,
+        image,
+        imagebackup: firebaseFileURL,
+      };
+    }
+
+    const updatedDish = await Dish.findByIdAndUpdate(dishId, dish, {
+      new: true,
+    });
+
+    res.status(200).json({ updatedDish });
+  } catch (error) {
+    debug(chalk.bgRed("Error updating dish"));
+    const customError = new Error();
+    customError.customMessage = "Error updating dish";
+    customError.statusCode = 404;
+
+    next(customError);
+  }
+};
+
+module.exports = { getDishes, deleteDish, createDish, uploadDish };
