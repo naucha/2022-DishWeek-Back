@@ -65,7 +65,11 @@ const createDish = async (req, res, next) => {
     res.status(201).json({ dish: { id: createdDish.id, ...newDish } });
   } catch (error) {
     debug(chalk.bgRedBright("Error creating dish"));
-    next(error);
+    const customError = new Error();
+    customError.customMessage = "Error creating dish";
+    customError.statusCode = 403;
+
+    next(customError);
   }
 };
 

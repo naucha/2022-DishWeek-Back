@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose");
 
 const Dish = require("../../database/models/Dish");
 const mockDishes = require("../mocks/mockDishes");
-const { getDishes, deleteDish } = require("./dishController");
+const { getDishes, deleteDish, createDish } = require("./dishController");
 const connectDB = require("../../database");
 
 let mongoServer;
@@ -77,6 +77,41 @@ describe("Given a deleteDish function", () => {
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
+});
+
+describe("Given a createDish function", () => {
+  jest.mock("../../database/models/Dish", () => ({
+    find: jest.fn().mockReturnThis(),
+  }));
+
+  jest.mock("fs", () => ({
+    ...jest.requireActual("fs"),
+    rename: jest.fn().mockReturnValue("pesols386.png"),
+  }));
+
+  describe("When it receives a request with a newDish without name", () => {
+    test("Then it should call a response's status with 403 and call next function", async () => {
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const req = {
+        body: {
+          userId: { username: "Pepito Grillo" },
+        },
+      };
+
+      const next = jest.fn();
+      await createDish(req, res, next);
+
+      const expectedError = new Error();
+      expectedError.customMessage = "Error creating dish";
+      expectedError.statusCode = 403;
+
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });
