@@ -36,7 +36,13 @@ const createDish = async (req, res, next) => {
 
     const {
       userId: { username },
+      body: { ingredient: allIngredients },
     } = req;
+
+    const cleanIngredients = allIngredients
+      .split("\r\n")
+      .map((ingredient) => ingredient.replace("- ", ""));
+
     const { file } = req;
     const { firebaseFileURL, newFilename } = req;
 
@@ -45,9 +51,9 @@ const createDish = async (req, res, next) => {
       createdby: username,
       image: file ? path.join("images", newFilename) : "",
       imagebackup: file ? firebaseFileURL : "",
+      ingredients: cleanIngredients,
     };
 
-    debug(newDish);
     const createdDish = await Dish.create(newDish);
 
     await User.updateOne(
