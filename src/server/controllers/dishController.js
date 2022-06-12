@@ -73,6 +73,22 @@ const createDish = async (req, res, next) => {
   }
 };
 
+const getDish = async (req, res, next) => {
+  const { idDishes } = req.params;
+
+  try {
+    const singleDish = await Dish.findById(idDishes);
+    res.status(200).json({ singleDish });
+  } catch (error) {
+    debug(chalk.bgRedBright("Error creating dish"));
+    const customError = new Error();
+    customError.statusCode = 400;
+    customError.customMessage = "Error getting dish";
+
+    next(customError);
+  }
+};
+
 const uploadDish = async (req, res, next) => {
   debug(chalk.bgBlue("New Request to update dish"));
   try {
@@ -103,4 +119,4 @@ const uploadDish = async (req, res, next) => {
   }
 };
 
-module.exports = { getDishes, deleteDish, createDish, uploadDish };
+module.exports = { getDishes, deleteDish, createDish, uploadDish, getDish };

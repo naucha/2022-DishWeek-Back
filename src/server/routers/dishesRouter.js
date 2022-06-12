@@ -9,6 +9,7 @@ const {
   deleteDish,
   createDish,
   uploadDish,
+  getDish,
 } = require("../controllers/dishController");
 const { renameFile } = require("../middlewares/renameFile");
 
@@ -39,5 +40,7 @@ dishesRouter.patch(
   renameFile,
   uploadDish
 );
+
+dishesRouter.get("/:idDishes", getDish);
 
 module.exports = dishesRouter;
