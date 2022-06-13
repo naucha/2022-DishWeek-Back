@@ -121,6 +121,27 @@ describe("Given a createDish function", () => {
       expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
+  describe("When it receives a request with a newDish with all fields writen", () => {
+    test("Then it should call a response's status 201", async () => {
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const allIngredients = "- Lemon\r\n- Mint";
+
+      const req = {
+        userId: { username: "Pepito Grillo" },
+        body: { ingredient: allIngredients },
+      };
+
+      const next = jest.fn();
+      Dish.create = jest.fn().mockReturnThis();
+      await createDish(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+    });
+  });
 });
 
 describe("Given a getDish function", () => {
