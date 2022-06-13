@@ -3,7 +3,13 @@ const { default: mongoose } = require("mongoose");
 
 const Dish = require("../../database/models/Dish");
 const mockDishes = require("../mocks/mockDishes");
-const { getDishes, deleteDish, createDish } = require("./dishController");
+const {
+  getDishes,
+  deleteDish,
+  createDish,
+  getDish,
+  updateDish,
+} = require("./dishController");
 const connectDB = require("../../database");
 
 let mongoServer;
@@ -14,6 +20,7 @@ beforeAll(async () => {
 });
 beforeEach(async () => {
   await Dish.create(mockDishes[0]);
+  await Dish.create(mockDishes[1]);
 });
 
 afterEach(async () => {
@@ -25,7 +32,7 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
-describe("Given a getDish function", () => {
+describe("Given a getDishes function", () => {
   describe("When it receives a request", () => {
     test("Then it should call the response's status method with 200", async () => {
       const res = {
@@ -46,7 +53,7 @@ describe("Given a getDish function", () => {
   });
 });
 
-describe("When ocurs an error", () => {
+describe("When occurs an error", () => {
   test("Then it should call the response's method with 404 and 'Page Not Found' error message", async () => {
     const expectedErrorMessage = "Page Not Found";
     const expectedError = new Error(expectedErrorMessage);
@@ -112,6 +119,110 @@ describe("Given a createDish function", () => {
       expectedError.statusCode = 403;
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+  describe("When it receives a request with a newDish with all fields writen", () => {
+    test("Then it should call a response's status 201", async () => {
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const allIngredients = "- Lemon\r\n- Mint";
+
+      const req = {
+        userId: { username: "Pepito Grillo" },
+        body: { ingredient: allIngredients },
+      };
+
+      const next = jest.fn();
+      Dish.create = jest.fn().mockReturnThis();
+      await createDish(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+    });
+  });
+});
+
+describe("Given a getDish function", () => {
+  describe("When it receives a request with a dishId", () => {
+    test("Then then should call a response's status method with 200 and json with the requested dish", async () => {
+      const expectedStatus = 200;
+      const expectedDish = mockDishes[0];
+
+      const req = {
+        params: { idDishes: expectedDish.id },
+      };
+
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      Dish.findById = jest.fn().mockResolvedValue(expectedDish);
+
+      await getDish(req, res, null);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({ singleDish: expectedDish });
+    });
+  });
+
+  describe("When it receives an unknown id", () => {
+    test("Then it should call the next function", async () => {
+      const req = {
+        params: { idDishes: "unknown" },
+      };
+      const next = jest.fn();
+
+      Dish.findById = jest
+        .fn()
+        .mockResolvedValue(new Error("Error getting dish"));
+
+      await getDish(req, null, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given updateDish function", () => {
+  describe("When it receives and id of dish", () => {
+    test("Then it shold call a response's method with status 200 and json response with a updated dish", async () => {
+      const expectedStatus = 200;
+      const expectedDish = mockDishes[0];
+
+      const req = {
+        params: { idDishes: expectedDish.id },
+      };
+
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      Dish.findByIdAndUpdate = jest.fn().mockResolvedValue(expectedDish);
+      await updateDish(req, res, null);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({ updatedDish: expectedDish });
+    });
+  });
+
+  describe("When it receives and unknown id", () => {
+    test("Then shold call a next function", async () => {
+      const req = {
+        params: { idDishes: "unknown" },
+      };
+      const next = jest.fn();
+
+      Dish.findByIdAndUpdate = jest
+        .fn()
+        .mockResolvedValue(new Error("Error updating dish"));
+
+      await updateDish(req, null, next);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });

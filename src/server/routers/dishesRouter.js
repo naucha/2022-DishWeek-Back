@@ -8,8 +8,8 @@ const {
   getDishes,
   deleteDish,
   createDish,
-  uploadDish,
   getDish,
+  updateDish,
 } = require("../controllers/dishController");
 const { renameFile } = require("../middlewares/renameFile");
 
@@ -38,7 +38,7 @@ dishesRouter.patch(
   auth,
   upload.single("image"),
   renameFile,
-  uploadDish
+  updateDish
 );
 
 dishesRouter.get("/:idDishes", getDish);
