@@ -84,6 +84,7 @@ const getDish = async (req, res, next) => {
 
   try {
     const singleDish = await Dish.findById(idDishes);
+
     res.status(200).json({ singleDish });
   } catch (error) {
     debug(chalk.bgRedBright("Error creating dish"));
@@ -95,13 +96,12 @@ const getDish = async (req, res, next) => {
   }
 };
 
-const uploadDish = async (req, res, next) => {
+const updateDish = async (req, res, next) => {
   debug(chalk.bgBlue("New Request to update dish"));
   try {
     const { idDishes } = req.params;
     let dish = req.body;
     const { image, firebaseFileURL } = req;
-
     if (image) {
       dish = {
         ...dish,
@@ -125,4 +125,10 @@ const uploadDish = async (req, res, next) => {
   }
 };
 
-module.exports = { getDishes, deleteDish, createDish, uploadDish, getDish };
+module.exports = {
+  getDishes,
+  deleteDish,
+  createDish,
+  updateDish,
+  getDish,
+};

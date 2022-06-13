@@ -11,7 +11,7 @@ const mockDishes = [
     cookingtime: "2h",
     dayofweek: [],
     createdby: "Pedro",
-    imageBackup: "patata2.jpg",
+    imagebackup: "patata2.jpg",
   },
   {
     id: "629f745001b61482544d9320",
@@ -25,7 +25,7 @@ const mockDishes = [
     cookingtime: "2h",
     dayofweek: [],
     createdby: "Pedra",
-    imageBackup: "maca2.jpg",
+    imagebackup: "maca2.jpg",
   },
 ];
 
