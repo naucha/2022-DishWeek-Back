@@ -33,14 +33,14 @@ dishesRouter.post(
   createDish
 );
 
-dishesRouter.patch(
-  "/edit/:idDishes",
+dishesRouter.put(
+  "/edit/:idDish",
   auth,
   upload.single("image"),
   renameFile,
   updateDish
 );
 
-dishesRouter.get("/:idDishes", getDish);
+dishesRouter.get("/:idDish", getDish);
 
 module.exports = dishesRouter;
