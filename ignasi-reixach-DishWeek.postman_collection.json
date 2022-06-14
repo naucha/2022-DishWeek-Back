@@ -1,191 +1,236 @@
 {
-  "info": {
-    "_postman_id": "6337e67a-c684-45cb-bb76-513afc6acf36",
-    "name": "ignasi-reixach-DishWeek",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "17542756"
-  },
-  "item": [
-    {
-      "name": "REGISTER",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "url": {
-          "raw": "{{origin}}user/register",
-          "host": ["{{origin}}user"],
-          "path": ["register"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "LOGIN",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"username\":\"grillo\",\n    \"password\":\"1234\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{origin}}user/login",
-          "host": ["{{origin}}user"],
-          "path": ["login"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "GET DISHES",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "DELETE DISH ID",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdyaWxsbyIsInBhc3N3b3JkIjoiJDJiJDEwJGY4bzVYMGY2NkR1bFZWNlVSLmRhRC5qYW5BTDBpTzl5Rms5cGNnaGJGODN1dXpHRHdUd0t5IiwiaWF0IjoxNjU0NTAxODk1fQ.kBwP9hFqOa2TNGwAhPS4X3LqyaOWMwLSwO5grp7wp5o",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{origin}}dishes/",
-          "host": ["{{origin}}dishes"],
-          "path": [""]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "CREATE DISH",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBhbSIsInBhc3N3b3JkIjoiJDJiJDEwJGpaSG5lQ00vUnp5QmwvSEg3VmxKUWV3cFlLL090L3NjWDVXanMyT015T2IvaC5Fa0xRS09PIiwiaWF0IjoxNjU0ODc5MDExfQ.5LBGMQ95wCsOZlkMk01WxFMOu9GqDepMwCRlN1HgjnU",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "image",
-              "type": "file",
-              "src": "/Users/ignasi/Documents/ESTUDIS/ISDI/0. Curs/DishWeek/Ref/img figma/prova.jpg"
-            },
-            {
-              "key": "name",
-              "value": "PEPITO DE TERNERA",
-              "type": "text"
-            },
-            {
-              "key": "recipe",
-              "value": "asdasdsadsadsadasdsadsaddasd",
-              "type": "text"
-            },
-            {
-              "key": "resume",
-              "value": "aguataacacsa",
-              "type": "text"
-            },
-            {
-              "key": "createdby",
-              "value": "{name: joselito, username: anis}",
-              "type": "text",
-              "disabled": true
-            },
-            {
-              "key": "daysofweek",
-              "value": "[lunes]",
-              "type": "text"
-            },
-            {
-              "key": "imagebackup",
-              "type": "file",
-              "src": "/Users/ignasi/Documents/ESTUDIS/ISDI/0. Curs/DishWeek/Ref/img figma/prova.jpg",
-              "disabled": true
-            },
-            {
-              "key": "veggie",
-              "value": "false",
-              "type": "text"
-            },
-            {
-              "key": "cookingtime",
-              "value": "50 min",
-              "type": "text"
-            },
-            {
-              "key": "ingredients",
-              "value": "[tomato]",
-              "type": "text"
-            }
-          ]
-        },
-        "url": {
-          "raw": "{{origin}}dishes/create",
-          "host": ["{{origin}}dishes"],
-          "path": ["create"]
-        }
-      },
-      "response": []
-    }
-  ],
-  "auth": {
-    "type": "bearer"
-  },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "origin",
-      "value": "http://localhost:4001/",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "6337e67a-c684-45cb-bb76-513afc6acf36",
+		"name": "ignasi-reixach-DishWeek",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17542756"
+	},
+	"item": [
+		{
+			"name": "REGISTER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{origin}}user/register",
+					"host": [
+						"{{origin}}user"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"grillo\",\n    \"password\":\"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{origin}}user/login",
+					"host": [
+						"{{origin}}user"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET DISHES",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE DISH ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdyaWxsbyIsInBhc3N3b3JkIjoiJDJiJDEwJGY4bzVYMGY2NkR1bFZWNlVSLmRhRC5qYW5BTDBpTzl5Rms5cGNnaGJGODN1dXpHRHdUd0t5IiwiaWF0IjoxNjU0NTAxODk1fQ.kBwP9hFqOa2TNGwAhPS4X3LqyaOWMwLSwO5grp7wp5o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{origin}}dishes/",
+					"host": [
+						"{{origin}}dishes"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE DISH",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBhbSIsInBhc3N3b3JkIjoiJDJiJDEwJGpaSG5lQ00vUnp5QmwvSEg3VmxKUWV3cFlLL090L3NjWDVXanMyT015T2IvaC5Fa0xRS09PIiwiaWF0IjoxNjU0ODc5MDExfQ.5LBGMQ95wCsOZlkMk01WxFMOu9GqDepMwCRlN1HgjnU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/ignasi/Documents/ESTUDIS/ISDI/0. Curs/DishWeek/Ref/img figma/prova.jpg"
+						},
+						{
+							"key": "name",
+							"value": "PEPITO DE TERNERA",
+							"type": "text"
+						},
+						{
+							"key": "recipe",
+							"value": "asdasdsadsadsadasdsadsaddasd",
+							"type": "text"
+						},
+						{
+							"key": "resume",
+							"value": "aguataacacsa",
+							"type": "text"
+						},
+						{
+							"key": "createdby",
+							"value": "{name: joselito, username: anis}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "daysofweek",
+							"value": "[lunes]",
+							"type": "text"
+						},
+						{
+							"key": "imagebackup",
+							"type": "file",
+							"src": "/Users/ignasi/Documents/ESTUDIS/ISDI/0. Curs/DishWeek/Ref/img figma/prova.jpg",
+							"disabled": true
+						},
+						{
+							"key": "veggie",
+							"value": "false",
+							"type": "text"
+						},
+						{
+							"key": "cookingtime",
+							"value": "50 min",
+							"type": "text"
+						},
+						{
+							"key": "ingredients",
+							"value": "[\"tomato\",\"onion\"]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{origin}}dishes/create",
+					"host": [
+						"{{origin}}dishes"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET SINGLE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{origin}}dishes/62a70d67b3cb9028ae78102b",
+					"host": [
+						"{{origin}}dishes"
+					],
+					"path": [
+						"62a70d67b3cb9028ae78102b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT SINGLE",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "origin",
+			"value": "http://localhost:4001/",
+			"type": "string"
+		}
+	]
 }
