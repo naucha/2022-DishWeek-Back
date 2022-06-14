@@ -39,10 +39,6 @@ const createDish = async (req, res, next) => {
       body: { ingredient: allIngredients },
     } = req;
 
-    const cleanIngredients = allIngredients
-      .split("\r\n")
-      .map((ingredient) => ingredient.replace("- ", ""));
-
     const { file } = req;
     const { firebaseFileURL, newFilename } = req;
 
@@ -51,7 +47,7 @@ const createDish = async (req, res, next) => {
       createdby: username,
       image: file ? path.join("images", newFilename) : "",
       imagebackup: file ? firebaseFileURL : "",
-      ingredients: cleanIngredients,
+      ingredients: allIngredients,
     };
 
     const createdDish = await Dish.create(newDish);
@@ -80,10 +76,10 @@ const createDish = async (req, res, next) => {
 };
 
 const getDish = async (req, res, next) => {
-  const { idDishes } = req.params;
+  const { idDish } = req.params;
 
   try {
-    const singleDish = await Dish.findById(idDishes);
+    const singleDish = await Dish.findById(idDish);
 
     res.status(200).json({ singleDish });
   } catch (error) {
@@ -99,18 +95,19 @@ const getDish = async (req, res, next) => {
 const updateDish = async (req, res, next) => {
   debug(chalk.bgBlue("New Request to update dish"));
   try {
-    const { idDishes } = req.params;
+    const { idDish } = req.params;
     let dish = req.body;
+    const { file } = req;
     const { image, firebaseFileURL } = req;
     if (image) {
       dish = {
         ...dish,
-        image,
-        imagebackup: firebaseFileURL,
+        image: file ? path.join("dishes", image) : "",
+        imagebackup: file ? firebaseFileURL : "",
       };
     }
 
-    const updatedDish = await Dish.findByIdAndUpdate(idDishes, dish, {
+    const updatedDish = await Dish.findByIdAndUpdate(idDish, dish, {
       new: true,
     });
 
