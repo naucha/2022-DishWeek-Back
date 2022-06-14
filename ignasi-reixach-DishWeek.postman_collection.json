@@ -148,7 +148,7 @@
             },
             {
               "key": "ingredients",
-              "value": "[tomato]",
+              "value": "[\"tomato\",\"onion\"]",
               "type": "text"
             }
           ]
@@ -158,6 +158,27 @@
           "host": ["{{origin}}dishes"],
           "path": ["create"]
         }
+      },
+      "response": []
+    },
+    {
+      "name": "GET SINGLE",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{origin}}dishes/62a70d67b3cb9028ae78102b",
+          "host": ["{{origin}}dishes"],
+          "path": ["62a70d67b3cb9028ae78102b"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EDIT SINGLE",
+      "request": {
+        "method": "GET",
+        "header": []
       },
       "response": []
     }
