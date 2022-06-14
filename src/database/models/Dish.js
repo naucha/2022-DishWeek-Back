@@ -9,7 +9,7 @@ const DishSchema = new Schema({
     type: String,
   },
   ingredients: {
-    type: Array,
+    type: String,
   },
   image: {
     type: String,

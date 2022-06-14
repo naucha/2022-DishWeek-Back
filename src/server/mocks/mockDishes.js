@@ -2,8 +2,8 @@ const mockDishes = [
   {
     id: "629f755a7951636442ccf56b",
     name: "patata",
-    veggy: true,
-    ingredients: ["pasta", "tomate"],
+    veggy: "true",
+    ingredients: "pasta, tomate",
     image: "patata.jpg",
     resume: "Poner a hervir...",
     recipe:
@@ -16,8 +16,8 @@ const mockDishes = [
   {
     id: "629f745001b61482544d9320",
     name: "macarrones",
-    veggy: true,
-    ingredients: ["cebolla", "pasta", "tomate"],
+    veggy: "true",
+    ingredients: "cebolla, pasta, tomate",
     image: "macarrones.jpg",
     resume: "Poner a hervir...",
     recipe:
