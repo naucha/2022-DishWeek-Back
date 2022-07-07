@@ -94,15 +94,17 @@ const getDish = async (req, res, next) => {
 
 const updateDish = async (req, res, next) => {
   debug(chalk.bgBlue("New Request to update dish"));
+
   try {
     const { idDish } = req.params;
     let dish = req.body;
     const { file } = req;
-    const { image, firebaseFileURL } = req;
-    if (image) {
+    const { newFilename, firebaseFileURL } = req;
+
+    if (newFilename) {
       dish = {
         ...dish,
-        image: file ? path.join("dishes", image) : "",
+        image: file ? path.join("dishes", newFilename) : "",
         imagebackup: file ? firebaseFileURL : "",
       };
     }

@@ -56,6 +56,7 @@ const renameFile = async (req, res, next) => {
 
             req.firebaseFileURL = firebaseFileURL;
             req.newFilename = newFilename;
+
             debug(chalk.yellow("Success on upload file to Firebase"));
             debug(chalk.green("Success on rename file"));
             if (firebaseFileURL) {
